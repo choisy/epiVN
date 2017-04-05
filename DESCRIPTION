@@ -1,0 +1,9 @@
+Package: epiVN
+Type: Package
+Title: Vaccine coverage data from the Expanded Program on Immunization (EPI) in Vietnam
+Version: 0.1.0
+Author: Marc Choisy, Lucie Contamin
+Maintainer: Marc Choisy <marc.choisy@ird.fr>
+Description: Vaccine coverage for measles and Japanese encephalitis
+License: MIT
+LazyData: TRUE
