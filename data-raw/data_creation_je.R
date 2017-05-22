@@ -92,6 +92,6 @@ je <- setNames(as.data.frame(je, stringsAsFactors = FALSE),
 je <- je[, c("province", "year", "nb_doses", "nb_districts", "districts_tot",
              "nb_people", "people_tg")]
 
-je %<>% mutate_if(is.numeric, as.integer) %>% str
+je %<>% mutate_if(is.numeric, as.integer)
 
 devtools::use_data(je, overwrite = TRUE)
