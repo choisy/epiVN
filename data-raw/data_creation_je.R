@@ -86,9 +86,12 @@ lapply(c(2008:2015), function(x) test_function(x, test = "2008"))
 # ------------------------------------------------------------------------------
 
 je <- setNames(as.data.frame(je, stringsAsFactors = FALSE),
-               c("province", "year", "nb_districts", "total_number", "nb_doses",
-                 "achieved", "target"))
+               c("province", "year", "nb_districts", "districts_tot", "nb_doses",
+                 "nb_people", "people_tg"))
 
-je %>% mutate_if(is.numeric, as.integer) %>% str
+je <- je[, c("province", "year", "nb_doses", "nb_districts", "districts_tot",
+             "nb_people", "people_tg")]
+
+je %<>% mutate_if(is.numeric, as.integer) %>% str
 
 devtools::use_data(je, overwrite = TRUE)
