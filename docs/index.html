@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Marc Choisy" />
+
+<meta name="date" content="2017-05-22" />
+
+<title>Using epiVN</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Using <code>epiVN</code></h1>
+<h4 class="author"><em>Marc Choisy</em></h4>
+<h4 class="date"><em>2017-05-22</em></h4>
+
+</div>
+
+
+<p>This package contains vaccine coverages by province and year in Vietnam. These data come from the WHO’s <em>Expanded Programme on Immunization</em> (EPI).</p>
+<div id="installation-and-loading" class="section level2">
+<h2>Installation and loading</h2>
+<p>You can install <code>epiVN</code> from <a href="https://github.com/choisy/epiVN">GitHub</a></p>
+<pre class="r"><code>&gt; # install.packages(&quot;devtools&quot;)
+&gt; devtools::install_bitbucket(&quot;choisy/epiVN&quot;, build_vignettes = TRUE)</code></pre>
+<p>Once installed, you can load the package:</p>
+<pre class="r"><code>&gt; library(epiVN)</code></pre>
+</div>
+<div id="usage-examples" class="section level2">
+<h2>Usage examples</h2>
+<p>So far, there is vaccination data only against <strong>Japanese encephalitis</strong>, per province, per year from 1997 to 2016. These data are contained in the <code>je</code> data frame. Data against other diseases will be added latter on.</p>
+<pre class="r"><code>&gt; data(je)
+&gt; dim(je)
+[1] 2560    7
+&gt; head(je)
+  province year nb_doses nb_districts districts_tot nb_people people_tg
+1 An Giang 1997        2            0            11        NA        NA
+2 An Giang 1997        3            0            11        NA        NA
+3 An Giang 1998        2            0            11        NA        NA
+4 An Giang 1998        3            0            11        NA        NA
+5 An Giang 1999        2            0            11        NA        NA
+6 An Giang 1999        3            0            11        NA        NA</code></pre>
+<p>The data are defined for a given province (<code>province</code>), a given year (<code>year</code>), and a given vaccination dose scheme (<code>nb_doses</code>) and contains:</p>
+<ul>
+<li><p><code>nb_districts</code>: the number of districts where the vaccine policy is implemented;</p></li>
+<li><p><code>districts_tot</code>: the total number of districts in the given province for the given year (varies from province to province but also potentially from year to year);</p></li>
+<li><p><code>nb_people</code>: the number of people that have been vaccinated;</p></li>
+<li><p><code>people_tg</code>: the targetted number of people to vaccinate.</p></li>
+</ul>
+<p>Note that the <code>nb_districts</code> is the same for the 2 doses scheme of a given province and a given year.</p>
+<div id="percentage-of-districts-included-in-the-programme-as-a-function-of-time" class="section level3">
+<h3>Percentage of districts included in the programme as a function of time</h3>
+<p>The number of districts included in the vaccination programme increases with time:</p>
+<pre class="r"><code>&gt; plot(nb_districts / districts_tot ~ year, subset(je, nb_doses == 2),
++      pch = 19, col = rgb(0, 0, 0, .1),
++      xlab = NA, ylab = &quot;percentage of districts&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="407.736" style="display: block; margin: auto;" /></p>
+</div>
+<div id="vaccine-coverages" class="section level3">
+<h3>Vaccine coverages</h3>
+<pre class="r"><code>&gt; with(je, hist(nb_people / people_tg, n = 20, col = &quot;grey&quot;,
++               xlab = &quot;vaccine coverage&quot;, ylab = &quot;frequency&quot;))</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="407.736" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
