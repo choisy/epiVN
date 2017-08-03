@@ -9,4 +9,3 @@
 Contains the vaccine coverages data from the WHO's Expanded Programme on
 Immunization.
 }
-

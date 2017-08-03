@@ -3,7 +3,7 @@ library(dplyr)    # for "filter", "select" , "contains"
 library(tidyr)    # for "gather", "spread", "separate"
 
 # Prerequisites ----------------------------------------------------------------
-provinces <- readRDS("data-raw/province.RDS")
+provinces <- readRDS("data-raw/je/province.rds")
 
 # Functions --------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ translate <- function(df, col_names = "province", hash = provinces) {
 
 # Load data --------------------------------------------------------------------
 
-je <- read_excel("data-raw/JE VACCINATION DATA IN VIET NAM, 1997-2016.xlsx", skip = 1) %>%
+je <- read_excel("data-raw/je/JE VACCINATION DATA IN VIET NAM, 1997-2016.xlsx", skip = 1) %>%
   make_col_names %>%
   gather(key, value, contains("19"), contains("20")) %>%
   separate(key, letters[1:2], "_", extra = "merge") %>%
@@ -61,7 +61,7 @@ je <- read_excel("data-raw/JE VACCINATION DATA IN VIET NAM, 1997-2016.xlsx", ski
   arrange(province, year)
 
 # Test provinces names ---------------------------------------------------------
-provinces_names <- readRDS(file = "data-raw/provinces_names.rds")
+provinces_names <- readRDS(file = "data-raw/je/provinces_names.rds")
 
 extract_prov <- function(ye, df = je) {
   filter(df, year == ye) %>%

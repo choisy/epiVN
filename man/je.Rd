@@ -26,4 +26,3 @@ A dataset containing the vaccine coverage against Japanese Encephalitis from
 1997 to 2016.
 }
 \keyword{datasets}
-
