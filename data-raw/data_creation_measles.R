@@ -120,7 +120,6 @@ for(i in 1:nrow(patch))
 north28$province <- dictionary::provinces[north28$province]
 
 # Some reformating:
-north28$age <- as.integer(north28$age)
 north28$nb_doses <- as.integer(north28$nb_doses)
 
 # Some tests -------------------------------------------------------------------
