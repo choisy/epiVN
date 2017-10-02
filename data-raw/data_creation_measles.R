@@ -48,6 +48,7 @@ south35$rash <- hash[south35$rash]
 south35$province <- dictionary::provinces[south35$province]
 
 # Some reformating:
+south35$age <- as.numeric(as.character(south35$age))
 south35$age_unit <- factor(gsub("s", "", south35$age_unit))
 
 # Data from the North ----------------------------------------------------------
