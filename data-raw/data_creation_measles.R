@@ -47,7 +47,11 @@ south35$rash <- hash[south35$rash]
 # Provinces names:
 south35$province <- dictionary::provinces[south35$province]
 
+# Some reformating:
+south35$age_unit <- factor(gsub("s", "", south35$age_unit))
+
 # Data from the North ----------------------------------------------------------
+
 library(readxl) # for "read_excel"
 north28 <- data.frame(read_excel("data-raw/measles/Cases north VN.xlsx"))
 
@@ -114,6 +118,10 @@ for(i in 1:nrow(patch))
 # Provinces names:
 north28$province <- dictionary::provinces[north28$province]
 
+# Some reformating:
+north28$age <- as.integer(north28$age)
+north28$nb_doses <- as.integer(north28$nb_doses)
+
 # Some tests -------------------------------------------------------------------
 
 if(FALSE) {
@@ -169,5 +177,7 @@ with(north28[-unlist(c(toobig,toosmall)),],
      hist(as.numeric(notification-fever),1000,xlim=c(-5,20)))
 
 }
+
+# End of tests -----------------------------------------------------------------
 
 devtools::use_data(north28, south35, overwrite = TRUE)
