@@ -5,8 +5,15 @@ Title: Vaccine coverage data from the Expanded Program on Immunization (EPI) in
 Version: 0.1.0
 Author: Marc Choisy, Lucie Contamin
 Maintainer: Marc Choisy <marc.choisy@ird.fr>
+Authors@R: c(person("Marc", "Choisy", 
+                   email = "marc.choisy@ird.fr", 
+                   role = c("aut", "cre"),
+                   comment = c(ORCID = "https://orcid.org/0000-0002-5187-6390")),
+           person("Lucie", "Contamin",
+                  email = "contamin.lucie@gmail.com", role = "aut"),
+           person("NIHE", role = "cph")
 Description: Vaccine coverage for measles and Japanese encephalitis
-License: MIT
+License: NIHE
 LazyData: TRUE
 RoxygenNote: 6.0.1
 Suggests: knitr,
